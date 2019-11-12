@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import ListItem from '../components/LIstItem.vue'
+import ListItem from '../components/ListItem.vue'
 
 export default {
     components: {
