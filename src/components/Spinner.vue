@@ -49,7 +49,7 @@ export default {
     left: 45px;
     animation-delay: 0;
 }
-@keyFrames lds-facebook {
+@keyframes lds-facebook {
     0% {
         top: 6px;
         height: 51px;

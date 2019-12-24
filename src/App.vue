@@ -4,19 +4,41 @@
     <transition name="page">
       <router-view></router-view>
     </transition>
-    <spinner :loading="true"></spinner>
+    <spinner :loading="loadingStatus"></spinner>
   </div>
 </template>
 
 <script>
 import ToolBar from './components/ToolBar.vue';
 import Spinner from './components/Spinner.vue';
+import bus from './utils/bus.js'
 
 export default {
   components: {
     ToolBar,
     Spinner,
   },
+  data() {
+    return {
+      loadingStatus: false
+    }
+  }, 
+  methods: {
+    startSpinner() {
+      this.loadingStatus = true
+    },
+    endSpinner() {
+      this.loadingStatus = false
+    }
+  },
+  created() {
+    bus.$on('start:spinner', this.startSpinner)
+    bus.$on('end:spinner', this.endSpinner)
+  },
+  beforeDestroy() {   //이벤트 버스의 객체가 계속 쌓이기 때문에 페이지가 사라지기전에 삭제를 해줘야 쌓이지 않는다.
+    bus.$off('start:spinner', this.startSpinner)
+    bus.$off('end:spinner', this.endSpinner)
+  }
 }
 </script>
 
